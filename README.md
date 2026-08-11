@@ -21,3 +21,28 @@ The following PowerShell command was executed:
 
 ```powershell
 powershell.exe -NoProfile -Command "Write-Output 'POWERSHELLLAB123' | Out-File C:\Users\Public\powershelllab.txt"
+
+## File Creation
+
+The command successfully created:
+
+`C:\Users\Public\powershelllab.txt`
+
+![PowerShell Output File](IMG_7442.png)
+
+## Sysmon Detection
+
+Sysmon recorded the PowerShell activity as a Process Create event.
+
+- Event ID: 1
+- Process: `powershell.exe`
+- Command line contained: `POWERSHELLLAB123`
+
+![Sysmon PowerShell Detection](IMG_7443.png)
+
+## Wazuh Detection
+
+A field-specific Lucene query was used to locate the activity:
+
+```text
+data.win.eventdata.commandLine:*POWERSHELLLAB123*
